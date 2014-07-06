@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<header>
+		<h2>Usonian Journal</h2>
+	</header>
+	
+	<body>
+		<h4> New post </h4>
+		<form method="post">
+				<label>
+					<div>Add post title:</div> 
+					<input type="text" name="subject" autocomplete="on" value ={{subject}}>
+				</label>
+			<br>
+			<br>
+				<label>
+					<div>Add your content:</div>
+					<textarea name="content" rows="20" cols="60">{{content}}</textarea>
+						<br>
+						<br>
+					<input type="submit" value="Post">
+					<input type="reset" value="Reset">
+				</label>
+				
+				<div class="error">{{error}}</div>
+		</form>
+	
+	</body>
+	
+
+</html>

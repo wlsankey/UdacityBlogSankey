@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+<header>
+	<h1>Usonian Journal</h1>
+</header>
+
+<body>
+{% for post in blog_post %}
+
+	<div class="post-wrapper">
+		<div class="post-title"><h2>{{post.title}}</h2> </div>
+		<div class="date">{{post.post_time}}</div>
+		<hr>
+		<div class="post-content"><pre>{{post.blog_content}}</pre></div>
+		<br>
+		<br>
+		<br>
+	</div>
+{% endfor %}	
+
+</body>
+
+
+</html>
