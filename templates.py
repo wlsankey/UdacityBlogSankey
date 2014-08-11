@@ -1,6 +1,7 @@
 import os
 import jinja2
 import webapp2
+import re
 
 from google.appengine.ext import db
 
@@ -15,9 +16,10 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_directo
 
 
 class BlogPost(db.Model):
-	title = db.StringProperty()
-	blog_content = db.TextProperty()
+	title = db.StringProperty(required = True)
+	blog_content = db.TextProperty(required = True)
 	post_time = db.DateTimeProperty(auto_now_add = True)
+	last_modified = db.DateTimeProperty(auto_now = True)
 	
 	
 class Handler(webapp2.RequestHandler):
@@ -34,7 +36,7 @@ class Handler(webapp2.RequestHandler):
 
 class OpeningPageHandler(Handler):
 	def render_front(self, subject = "", content = ""):
-		db_cursor = db.GqlQuery("SELECT * FROM BlogPost ORDER BY post_time DESC")
+		db_cursor = db.GqlQuery("SELECT * FROM BlogPost ORDER BY post_time DESC limit 10")
 		self.render("home_page.html", blog_post=db_cursor)
 	
 	def get(self):
@@ -52,23 +54,32 @@ class BlogInputHandler(Handler):
 
 	def post(self):
 		subject = self.request.get("subject")
-		content = self.request.get("content")
+		content = self.request.get("content")#.replace('\n', '\<br>')
 
 		if subject and content:
 			instance = BlogPost(title=subject, blog_content=content)
 			instance.put()
-			self.redirect("/")
+			post_key = str(instance.key().id())
+			self.redirect("/blog/%s" %post_key)
 			
 			
 		else:
 			error = "Please include both a title and a blog post."
 			self.render_front(subject, content, error)
-		
-#class MainHandler(webapp2.RequestHandler):
-#    def get(self):
-#		self.response.headers['Content-Type'] = 'text/plain'
-#		self.response.write('Hello world!')
+			
+class PostPageHandler(Handler):
+	def get(self, post_id):
+		post_id = int(post_id)
+		post = BlogPost.get_by_id(post_id)
+		if post:
+			self.render("permalink.html", post=post)
+		else:
+			self.write("This page does not exist.")
+
 
 app = webapp2.WSGIApplication([
-    ('/', BlogInputHandler),('/home', OpeningPageHandler),
-], debug=True)
+    ('/', BlogInputHandler),
+	('/home', OpeningPageHandler),
+	('/blog', OpeningPageHandler),
+	('/blog/([0-9]+)', PostPageHandler),
+	], debug=True)

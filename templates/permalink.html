@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-
-
-
 <html>
-
-
-<header>
-	<h1>Usonian Journal</h1>
-	<hr>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/blog_css.css" />
-</header>
-
-<div id="background">
-<body>
-{% for post in blog_post %}
-
+	<header>
+		<h2>Usonian Journal</h2>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/blog_css.css" />
+	</header>
+	
+	<body>
 	<div class="post-wrapper">
 		<div id="post-title"><h2>{{post.title}}</h2> </div>
 		<div class="date">{{post.post_time.strftime("%A, %B %d, %Y")}}</div>
@@ -24,9 +15,7 @@
 		<br>
 		<br>
 	</div>
-{% endfor %}	
 
 </body>
-</div>
-
+	
 </html>

@@ -1,0 +1,55 @@
+
+body {
+	
+	}
+	
+
+h1 {
+	font-family: Verdana, "Arial", "sans-serif";
+	font-weight: bold;
+	text-align: center
+	}
+	
+h2 {
+	font-family: Verdana, "Arial", "sans-serif";
+	font-weight: bold;
+	text-align: left
+	}
+	
+h4 {
+	font-family: Verdana, "Arial", "sans-serif";
+	font-weight: bold;
+	text-align: left
+	}
+
+#background {
+	width: 450px;
+	padding-left: 10px;
+	padding-right: 10px
+	}
+
+#post-title {
+	font-family: "Calibri", "Arial", "sans-serif";
+	font-size: large;
+	text-align: left
+	}
+
+.date {
+	font-family: "Calibri", "Arial", "sans-serif";
+	font-size: small;
+	text-align: left
+	}
+
+.post-content {
+	font-family: "Calibri", "Arial", "sans-serif";
+	font-size: small;
+	text-align: left
+}
+
+.error {
+	font-family: "Calibri", "Arial", "sans-serif";
+	font-size: small;
+	text-align: left;
+	color: red;
+	
+}
